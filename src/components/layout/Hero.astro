@@ -1,0 +1,44 @@
+---
+// HeroCarrusel.astro
+const images = [
+  "images/hero1.jpeg",
+  "images/hero2.jpeg",
+  "images/hero3.jpeg",
+  "images/hero4.jpeg",
+];
+---
+
+<section 
+  id="hero"
+  class="relative h-[80vh] bg-cover bg-center transition-all duration-1000 ease-in-out"
+  style={`background-image: url('${images[0]}');`}
+>
+  <!-- Capa oscura -->
+  <div class="absolute inset-0 bg-[#00000099] flex items-center justify-center text-center px-4">
+    <div>
+      <h1 class="text-white text-5xl md:text-7xl font-light mb-4">La tradición italiana vive aquí</h1>
+      <p class="text-[#e9d8a6] text-xl mb-6 italic">Sabores auténticos en cada plato</p>
+      <a href="/reservas" class="bg-[#e9d8a6] text-black px-6 py-3 rounded-full text-lg hover:bg-white transition">
+        Reservar mesa
+      </a>
+    </div>
+  </div>
+
+  <!-- Script para rotar imágenes -->
+  <script type="module">
+    const images = [
+      "/images/hero1.jpeg",
+      "/images/hero2.jpeg",
+      "/images/hero3.jpeg",
+      "/images/hero4.jpeg",
+    ];
+    let index = 0;
+    const hero = document.getElementById("hero");
+
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      hero.style.backgroundImage = `url('${images[index]}')`;
+    }, 5000); // cambia cada 5 segundos
+  </script>
+</section>
+

@@ -1,0 +1,34 @@
+<section class="bg-gray-50 text-[#4e563f] py-12 px-6 font-serif">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl font-light mb-8">Contáctanos</h2>
+    <p class="text-lg mb-16 italic text-[#6b705c]">¿Tienes alguna pregunta o quieres hacer una reserva especial?</p>
+    <form action="/api/contacto" method="POST" class="grid gap-2 text-left max-w-1xl mx-auto">
+      
+      <div>
+        <label class="block mb-4 text-sm font-medium">Nombre</label>
+        
+        <input type="text" name="nombre" required
+          class="w-full border border-[#ccc] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e9d8a6]" />
+      </div>
+
+      <div>
+        <label class="block mb-4 text-sm font-medium">Correo electrónico</label>
+        <input type="email" name="correo" required
+          class="w-full border border-[#ccc] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e9d8a6]" />
+      </div>
+
+      <div>
+        <label class="block mb-4 text-sm font-medium">Mensaje</label>
+        <textarea name="mensaje" rows="6" required
+          class="w-full border border-[#ccc] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#e9d8a6]"></textarea>
+      </div>
+
+     <button type="submit" class="bg-[#e9d8a6] text-black px-6 py-3 rounded-full hover:bg-white transition self-start">
+        Enviar mensaje
+      </button>
+
+    </form>
+  </div>
+</section>
+
+
