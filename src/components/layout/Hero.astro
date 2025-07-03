@@ -8,37 +8,133 @@ const images = [
 ];
 ---
 
-<section 
-  id="hero"
-  class="relative h-[80vh] bg-cover bg-center transition-all duration-1000 ease-in-out"
-  style={`background-image: url('${images[0]}');`}
+<section
+  class="min-h-[60vh] bg-[#e9d8a6] text-[#4e563f] flex items-center justify-center px-4 md:px-16 font-serif"
 >
-  <!-- Capa oscura -->
-  <div class="absolute inset-0 bg-[#00000099] flex items-center justify-center text-center px-4">
-    <div>
-      <h1 class="text-white text-5xl md:text-7xl font-light mb-4">La tradición italiana vive aquí</h1>
-      <p class="text-[#e9d8a6] text-xl mb-6 italic">Sabores auténticos en cada plato</p>
-      <a href="/reservas" class="bg-[#e9d8a6] text-black px-6 py-3 rounded-full text-lg hover:bg-white transition">
-        Reservar mesa
-      </a>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center max-w-7xl w-full"
+  >
+    <!-- Logo -->
+    <div class="text-center md:text-left animate-fade-in">
+      <img
+        src="/images/trattoria-la-bella-main-logo-sec.png"
+        alt="Logo Trattoria La Bella"
+        class="mx-auto md:mx-0 max-h-60 w-auto mb-4 md:mb-0"
+      />
+    </div>
+
+    <!-- Frase llamativa -->
+    <div class="text-left px-2 md:px-0 animate-fade-in">
+      <h2
+        class="text-3xl md:text-5xl font-bold mb-4 transition-all duration-700"
+      >
+        "Pasión por cada plato, tradición en cada bocado"
+      </h2>
+      <p class="text-base md:text-xl text-[#333]">
+        Inspirados en la auténtica gastronomía italiana, en Trattoria La Bella
+        combinamos ingredientes frescos, recetas tradicionales y pasión por el
+        sabor para ofrecerte una experiencia culinaria única.
+      </p>
     </div>
   </div>
-
-  <!-- Script para rotar imágenes -->
-  <script type="module">
-    const images = [
-      "/images/hero1.jpeg",
-      "/images/hero2.jpeg",
-      "/images/hero3.jpeg",
-      "/images/hero4.jpeg",
-    ];
-    let index = 0;
-    const hero = document.getElementById("hero");
-
-    setInterval(() => {
-      index = (index + 1) % images.length;
-      hero.style.backgroundImage = `url('${images[index]}')`;
-    }, 5000); // cambia cada 5 segundos
-  </script>
 </section>
 
+<section class="bg-[#f6f6f6] py-10">
+  <div class="max-w-6xl mx-auto px-6 md:px-10 text-center">
+    <h2 class="text-2xl md:text-3xl font-semibold text-[#4e563f] mb-8">
+      Una probadita de nuestra gastronomía
+    </h2>
+
+    <!-- Grid de imágenes -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+      <img
+        src="http://localhost:9000/imagenes-trattoria/quezo_fundido.JPG"
+        alt="Queso Fundido"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+      <img
+        src="http://localhost:9000/imagenes-trattoria/flan_fresa.JPG"
+        alt="Flan de fresa"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+      <img
+        src="http://localhost:9000/imagenes-trattoria/pasta_verde.JPG"
+        alt="Pasta verde"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+      <img
+        src="http://localhost:9000/imagenes-trattoria/carne.JPG"
+        alt="Carne con pasta"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <img
+        src="http://localhost:9000/imagenes-trattoria/pasta_carbonara.JPG"
+        alt="Pasta carbonara"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+      <img
+        src="http://localhost:9000/imagenes-trattoria/pasta_calamar.JPG"
+        alt="Pasta con calamar"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+      <img
+        src="http://localhost:9000/imagenes-trattoria/pasta.JPG"
+        alt="Pasta al pomodoro"
+        class="w-full h-48 object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="bg-[#e9d8a6] py-10">
+  <div class="max-w-6xl mx-auto text-center px-6 md:px-10">
+    <h2 class="text-2xl md:text-3xl font-semibold text-[#4e563f] mb-8">
+      Nuestros Espacios
+    </h2>
+
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+    >
+      <!-- Imagenes -->
+      {
+        [
+          "hero2.jpeg",
+          "hero3.jpeg",
+          "reserva-fondo.jpeg",
+          "hero4.jpeg",
+          "hero1.jpeg",
+        ].map((img) => (
+          <div class="w-full h-48 rounded-lg overflow-hidden shadow-md hover:scale-105 transition-transform duration-300">
+            <img
+              src={`http://localhost:9000/imagenes-trattoria/${img}`}
+              alt="Espacio Trattoria"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Mapa -->
+<section class="bg-[#f6f6f6] py-10">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h3 class="text-xl font-semibold text-[#4e563f] mb-6">
+      Puedes encontrarnos aquí
+    </h3>
+    <div class="w-full h-96 rounded-xl overflow-hidden shadow-lg">
+      <iframe
+        src="https://www.google.com/maps?q=Carrera+10+%2327-27,+Bogotá,+Colombia&output=embed"
+        width="100%"
+        height="100%"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="border-0"></iframe>
+    </div>
+  </div>
+</section>
