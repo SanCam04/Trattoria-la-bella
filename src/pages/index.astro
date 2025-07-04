@@ -1,8 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/layout/Hero.astro';
+export async function get() {
+  return {
+    status: 301,
+    headers: {
+      Location: '/inicio',
+    },
+  };
+}
 ---
-
-<Layout>
-  <Hero />
-</Layout>
