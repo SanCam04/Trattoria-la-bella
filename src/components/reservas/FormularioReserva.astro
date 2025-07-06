@@ -153,6 +153,9 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       calendarDays.innerHTML = "";
 
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo fechas
+
       for (let i = 0; i < firstDay; i++) {
         calendarDays.appendChild(document.createElement("div"));
       }
@@ -160,16 +163,75 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
       for (let i = 1; i <= daysInMonth; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
+
+        const fechaBtn = new Date(year, month, i);
+        fechaBtn.setHours(0, 0, 0, 0); // Asegurarse que se compara sin la hora
+
+        const esPasado = fechaBtn < today;
+
         btn.className =
-          "hover:bg-[#e9d8a6] hover:text-black transition p-2 rounded";
-        btn.addEventListener("click", () => {
-          if (selectedDay)
-            selectedDay.classList.remove("bg-[#e9d8a6]", "text-black");
-          btn.classList.add("bg-[#e9d8a6]", "text-black");
-          selectedDay = btn;
-          const monthNum = month + 1;
-          fechaSeleccionada = `${year}-${monthNum.toString().padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
-        });
+          "transition p-2 rounded " +
+          (esPasado
+            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+            : "hover:bg-[#e9d8a6] hover:text-black");
+
+        if (!esPasado) {
+          btn.addEventListener("click", () => {
+            if (selectedDay)
+              selectedDay.classList.remove("bg-[#e9d8a6]", "text-black");
+            btn.classList.add("bg-[#e9d8a6]", "text-black");
+            selectedDay = btn;
+
+            const monthNum = month + 1;
+            fechaSeleccionada = `${year}-${monthNum
+              .toString()
+              .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
+
+            // Validación de horas disponibles
+            const selectHora = document.getElementById("selectHora");
+            selectHora.innerHTML =
+              '<option value="">-- Selecciona una hora --</option>';
+
+            const horasDisponibles = [
+              "08:00 am",
+              "09:00 am",
+              "10:00 am",
+              "11:00 am",
+              "12:00 pm",
+              "01:00 pm",
+              "02:00 pm",
+              "03:00 pm",
+              "04:00 pm",
+              "05:00 pm",
+            ];
+
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
+            const seleccionada = new Date(year, month, i);
+            seleccionada.setHours(0, 0, 0, 0);
+
+            const ahora = new Date();
+            const horaActual = ahora.getHours();
+
+            horasDisponibles.forEach((horaTexto) => {
+              const [hora, meridiano] = horaTexto.split(" ");
+              let [h, m] = hora.split(":").map(Number);
+              if (meridiano.toLowerCase() === "pm" && h !== 12) h += 12;
+              if (meridiano.toLowerCase() === "am" && h === 12) h = 0;
+
+              // Si no es hoy o si la hora es al menos una hora después
+              if (seleccionada.getTime() !== hoy.getTime() || h > horaActual) {
+                const option = document.createElement("option");
+                option.value = horaTexto;
+                option.textContent = horaTexto;
+                selectHora.appendChild(option);
+              }
+            });
+          });
+        } else {
+          btn.disabled = true;
+        }
+
         calendarDays.appendChild(btn);
       }
     };
