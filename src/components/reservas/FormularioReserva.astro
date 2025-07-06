@@ -188,31 +188,64 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
               .toString()
               .padStart(2, "0")}-${i.toString().padStart(2, "0")}`;
 
-            // Validación de horas disponibles
             const selectHora = document.getElementById("selectHora");
             selectHora.innerHTML =
               '<option value="">-- Selecciona una hora --</option>';
 
-            const horasDisponibles = [
-              "08:00 am",
-              "09:00 am",
-              "10:00 am",
-              "11:00 am",
-              "12:00 pm",
-              "01:00 pm",
-              "02:00 pm",
-              "03:00 pm",
-              "04:00 pm",
-              "05:00 pm",
-            ];
-
-            const hoy = new Date();
-            hoy.setHours(0, 0, 0, 0);
+            // Asegura la fecha seleccionada
             const seleccionada = new Date(year, month, i);
             seleccionada.setHours(0, 0, 0, 0);
 
+            const diaSemana = seleccionada.getDay(); // 0: domingo, 1: lunes, ..., 6: sábado
+
+            // Horarios según el día de la semana
+            let horasDisponibles = [];
+
+            if ([1, 2, 3].includes(diaSemana)) {
+              horasDisponibles = [
+                "11:00 am",
+                "12:00 pm",
+                "01:00 pm",
+                "02:00 pm",
+                "03:00 pm",
+                "04:00 pm",
+                "05:00 pm",
+                "06:00 pm",
+                "07:00 pm",
+              ];
+            } else if ([4, 5].includes(diaSemana)) {
+              horasDisponibles = [
+                "11:00 am",
+                "12:00 pm",
+                "01:00 pm",
+                "02:00 pm",
+                "03:00 pm",
+                "04:00 pm",
+                "05:00 pm",
+                "06:00 pm",
+                "07:00 pm",
+                "08:00 pm",
+                "09:00 pm",
+              ];
+            } else if (diaSemana === 6) {
+              horasDisponibles = [
+                "11:00 am",
+                "12:00 pm",
+                "01:00 pm",
+                "02:00 pm",
+                "03:00 pm",
+                "04:00 pm",
+                "05:00 pm",
+              ];
+            }
+
+            // Mostrar solo horas válidas (no pasadas si es hoy)
+            const hoy = new Date();
+            hoy.setHours(0, 0, 0, 0);
             const ahora = new Date();
             const horaActual = ahora.getHours();
+
+            let algunaHoraValida = false;
 
             horasDisponibles.forEach((horaTexto) => {
               const [hora, meridiano] = horaTexto.split(" ");
@@ -225,8 +258,17 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
                 option.value = horaTexto;
                 option.textContent = horaTexto;
                 selectHora.appendChild(option);
+                algunaHoraValida = true;
               }
             });
+
+            // Si no hay horas válidas, mostrar mensaje
+            if (!algunaHoraValida) {
+              const option = document.createElement("option");
+              option.disabled = true;
+              option.textContent = "No hay horarios disponibles hoy";
+              selectHora.appendChild(option);
+            }
           });
         } else {
           btn.disabled = true;
