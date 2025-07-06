@@ -154,7 +154,7 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
       calendarDays.innerHTML = "";
 
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // Elimina la hora para comparar solo fechas
+      today.setHours(0, 0, 0, 0); // Comparar solo fecha sin hora
 
       for (let i = 0; i < firstDay; i++) {
         calendarDays.appendChild(document.createElement("div"));
@@ -165,17 +165,18 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
         btn.textContent = i;
 
         const fechaBtn = new Date(year, month, i);
-        fechaBtn.setHours(0, 0, 0, 0); // Asegurarse que se compara sin la hora
+        fechaBtn.setHours(0, 0, 0, 0);
 
         const esPasado = fechaBtn < today;
+        const esDomingo = fechaBtn.getDay() === 0;
 
         btn.className =
           "transition p-2 rounded " +
-          (esPasado
+          (esPasado || esDomingo
             ? "bg-gray-200 text-gray-400 cursor-not-allowed"
             : "hover:bg-[#e9d8a6] hover:text-black");
 
-        if (!esPasado) {
+        if (!esPasado && !esDomingo) {
           btn.addEventListener("click", () => {
             if (selectedDay)
               selectedDay.classList.remove("bg-[#e9d8a6]", "text-black");
@@ -219,7 +220,6 @@ let mostrarFormulario = true; // Lo cambiarás a dinámico con JavaScript luego
               if (meridiano.toLowerCase() === "pm" && h !== 12) h += 12;
               if (meridiano.toLowerCase() === "am" && h === 12) h = 0;
 
-              // Si no es hoy o si la hora es al menos una hora después
               if (seleccionada.getTime() !== hoy.getTime() || h > horaActual) {
                 const option = document.createElement("option");
                 option.value = horaTexto;
